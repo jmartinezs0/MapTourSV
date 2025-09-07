@@ -27,7 +27,7 @@ HTML5 / CSS3 / JavaScript → Desarrollo de la interfaz web.
 
 Clonar este repositorio:
 
-git clone https://github.com/usuario/MapTourSV.git
+git clone https://github.com/jmartinezs0/MapTourSV.git
 
 
 Abrir el archivo index.html en cualquier navegador moderno.
