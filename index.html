@@ -1,0 +1,83 @@
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>MapTourSV</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand"><span class="dot"></span> MapTourSV</div>
+      <div class="top-actions">
+        <button class="btn ghost" id="btnHelp">Ayuda</button>
+        <button class="btn primary" id="btnAdd">Añadir lugar</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <aside class="panel">
+        <header><strong>Explorar</strong><button class="btn ghost" id="btnReset">Reset</button></header>
+        <div class="body">
+          <div class="field">
+            <label for="q">Buscar destino</label>
+            <input id="q" class="input" type="search" placeholder="Playa, volcán, lago…">
+          </div>
+          <div class="field">
+            <label>Categorías</label>
+            <div class="chips" id="chips">
+              <button class="chip" data-cat="playa" aria-pressed="false">Playa</button>
+              <button class="chip" data-cat="volcan" aria-pressed="false">Volcán</button>
+              <button class="chip" data-cat="lago" aria-pressed="false">Lago</button>
+              <button class="chip" data-cat="historia" aria-pressed="false">Histórico</button>
+              <button class="chip" data-cat="pueblo" aria-pressed="false">Pueblo</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sort">Ordenar</label>
+            <select id="sort" class="select">
+              <option value="az">A–Z</option>
+              <option value="za">Z–A</option>
+              <option value="tipo">Por categoría</option>
+            </select>
+          </div>
+          <button class="btn" id="btnMyLoc">Usar mi ubicación</button>
+        </div>
+      </aside>
+
+      <main id="map" aria-label="Mapa de destinos turísticos de El Salvador"></main>
+
+      <aside class="details">
+        <header><strong>Detalles</strong></header>
+        <div class="body" id="details">
+          <div class="card">
+            <h4>Selecciona un lugar en el mapa</h4>
+            <p class="muted">Verás aquí su descripción y la opción de “Cómo llegar”.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <dialog id="modalHelp" aria-label="Ayuda MapTourSV">
+    <div class="modal-head">
+      <strong>¿Cómo usar MapTourSV?</strong>
+      <button class="btn ghost" onclick="modalHelp.close()">Cerrar</button>
+    </div>
+    <div class="modal-body">
+      <p>Haz clic en un marcador para ver el destino y abre “Cómo llegar” para generar la ruta en Google Maps.</p>
+      <p>Usa “Usar mi ubicación” para centrar el mapa y mejorar las indicaciones.</p>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast">Ubicación activada</div>
+</body>
+  <script src="assets/js/buscador.js"></script>
+</html>
+  

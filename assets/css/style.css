@@ -1,0 +1,165 @@
+    *,*::before,*::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    img, svg, video, canvas { display: block; max-width: 100%; }
+    input, button, select, textarea { font: inherit; }
+    :root {
+
+        --radius: 16px;
+      --radius-sm: 10px;
+      --gap: 16px;
+      --shadow-1: 0 6px 24px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.06);
+      --shadow-2: 0 12px 32px rgba(0,0,0,.10), 0 6px 16px rgba(0,0,0,.08);
+
+      --bg: #0f1220;
+      --panel: #13162b;
+      --elev: #171b34;
+      --text: #e8eaf3;
+      --muted: #b4bad1;
+      --primary: #6ee7ff;
+      --primary-ink: #081018;
+      --border: #232744;
+      --accent: #a78bfa;
+
+      --fs-hero: clamp(1.1rem, 2vw + .8rem, 1.6rem);
+      --fs: clamp(.95rem, .6vw + .75rem, 1.05rem);
+
+      accent-color: var(--primary);
+      color-scheme: dark;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f7f7fb;
+        --panel: #ffffff;
+        --elev: #ffffff;
+        --text: #0f1220;
+        --muted: #5b6178;
+        --primary: #0ea5e9;
+        --primary-ink: #f0f9ff;
+        --border: #e8eaf3;
+        --accent: #7c3aed;
+        color-scheme: light;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    body {
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(108,99,255,.25), transparent 60%),
+                  radial-gradient(900px 500px at 120% 10%, rgba(14,165,233,.18), transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      font-size: var(--fs);
+    }
+    .app {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 100dvh;
+    }
+
+    /* Header / Topbar */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: var(--gap);
+      padding: 14px max(16px, 4vw);
+      background: color-mix(in oklab, var(--panel) 92%, transparent);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: saturate(120%) blur(8px);
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .2px;
+      font-size: var(--fs-hero);
+    }
+    .brand .dot { width: 12px; height: 12px; border-radius: 999px; background: linear-gradient(135deg, var(--primary), var(--accent)); box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 20%, transparent); }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+
+    .btn {
+      appearance: none; border: 1px solid var(--border); background: var(--elev);
+      color: var(--text); padding: 10px 14px; border-radius: 999px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px; transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+      box-shadow: var(--shadow-1);
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-2); }
+    .btn.primary { background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 90%, #fff 10%), var(--primary)); border: none; color: var(--primary-ink); }
+    .btn.ghost { background: transparent; }
+
+    /* === Contenido: sidebar, mapa y panel === */
+    .content {
+      display: grid;
+      grid-template-columns: 320px 1fr min(360px, 28vw);
+      gap: var(--gap);
+      padding: var(--gap);
+      padding-inline: max(16px, 4vw);
+    }
+    @media (max-width: 1100px) {
+      .content { grid-template-columns: 1fr; }
+      .panel, .details { order: 2; }
+      #map { order: 1; height: 60vh; }
+    }
+
+    .panel, .details {
+      background: color-mix(in oklab, var(--panel) 96%, transparent);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-1);
+      overflow: clip;
+    }
+    .panel header, .details header {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 14px 16px; border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 90%, transparent), transparent);
+    }
+    .panel .body, .details .body {
+      padding: 14px 16px; display: grid; gap: 12px;
+    }
+    .field { display: grid; gap: 8px; }
+    .field label { font-size: .9em; color: var(--muted); }
+    .input, .select {
+      width: 100%; background: var(--elev); border: 1px solid var(--border);
+      color: var(--text); border-radius: 12px; padding: 10px 12px; outline: none;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      border: 1px solid var(--border); background: var(--elev);
+      padding: 6px 10px; border-radius: 999px; cursor: pointer; user-select: none;
+    }
+    .chip[aria-pressed="true"] { background: color-mix(in oklab, var(--primary) 22%, var(--elev)); border-color: color-mix(in oklab, var(--primary) 45%, var(--border)); }
+
+    /* Mapa */
+    #map {
+      height: 78vh;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-1);
+      overflow: hidden;
+    }
+    .leaflet-container { background: #0e111a; }
+
+    /* detalles */
+    .card {
+      display: grid; gap: 8px; padding: 12px; border: 1px solid var(--border);
+      background: var(--elev); border-radius: var(--radius-sm);
+    }
+    .card h4 { margin: 0; font-size: 1.02rem; }
+    .card .muted { color: var(--muted); font-size: .92em; }
+
+    /* Modal */
+    dialog {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 0; background: var(--panel); color: var(--text); box-shadow: var(--shadow-2);
+      width: min(720px, 92vw);
+    }
+    dialog::backdrop { backdrop-filter: blur(3px); background: rgba(0,0,0,.35); }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; padding:16px; border-bottom:1px solid var(--border); }
+    .modal-body { padding: 16px; display: grid; gap: 12px; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(16px);
+      background: var(--panel); border: 1px solid var(--border); color: var(--text);
+      padding: 10px 14px; border-radius: 999px; box-shadow: var(--shadow-2);
+      opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
