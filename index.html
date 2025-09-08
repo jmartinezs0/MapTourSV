@@ -7,38 +7,60 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    <link rel="stylesheet" href="assets/css/style.css">
-
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
   <div class="app">
+    <!-- ===== Topbar ===== -->
     <div class="topbar">
       <div class="brand"><span class="dot"></span> MapTourSV</div>
       <div class="top-actions">
         <button class="btn ghost" id="btnHelp">Ayuda</button>
-        <button class="btn primary" id="btnAdd">Añadir lugar</button>
+        <!--<button class="btn primary" id="btnAdd">Añadir lugar</button>-->
       </div>
     </div>
 
+    <!-- ===== Layout principal ===== -->
     <div class="content">
+      <!-- Panel lateral -->
       <aside class="panel">
-        <header><strong>Explorar</strong><button class="btn ghost" id="btnReset">Reset</button></header>
+        <header>
+          <strong>Explorar</strong>
+          <button class="btn ghost" id="btnReset">Reset</button>
+        </header>
+
         <div class="body">
+          <!-- Búsqueda -->
           <div class="field">
             <label for="q">Buscar destino</label>
             <input id="q" class="input" type="search" placeholder="Playa, volcán, lago…">
           </div>
+
+          <!-- Filtro por categorías -->
           <div class="field">
             <label>Categorías</label>
             <div class="chips" id="chips">
               <button class="chip" data-cat="playa" aria-pressed="false">Playa</button>
-              <button class="chip" data-cat="volcan" aria-pressed="false">Volcán</button>
+              <button class="chip" data-cat="volcán" aria-pressed="false">Volcán</button>
               <button class="chip" data-cat="lago" aria-pressed="false">Lago</button>
               <button class="chip" data-cat="historia" aria-pressed="false">Histórico</button>
               <button class="chip" data-cat="pueblo" aria-pressed="false">Pueblo</button>
+              <button class="chip" data-cat="mirador" aria-pressed="false">Mirador</button>
             </div>
           </div>
+
+          <!-- Filtro por zona -->
+          <div class="field">
+            <label>Zonas</label>
+            <div class="chips" id="chipsZona">
+              <button class="chip" data-zona="occidente" aria-pressed="false">Occidente</button>
+              <button class="chip" data-zona="centro" aria-pressed="false">Centro</button>
+              <button class="chip" data-zona="oriente" aria-pressed="false">Oriente</button>
+            </div>
+          </div>
+
+          <!-- Ordenar -->
           <div class="field">
             <label for="sort">Ordenar</label>
             <select id="sort" class="select">
@@ -47,12 +69,16 @@
               <option value="tipo">Por categoría</option>
             </select>
           </div>
+
+          <!-- Ubicación -->
           <button class="btn" id="btnMyLoc">Usar mi ubicación</button>
         </div>
       </aside>
 
+      <!-- Mapa -->
       <main id="map" aria-label="Mapa de destinos turísticos de El Salvador"></main>
 
+      <!-- Detalles -->
       <aside class="details">
         <header><strong>Detalles</strong></header>
         <div class="body" id="details">
@@ -65,6 +91,7 @@
     </div>
   </div>
 
+  <!-- Modal ayuda -->
   <dialog id="modalHelp" aria-label="Ayuda MapTourSV">
     <div class="modal-head">
       <strong>¿Cómo usar MapTourSV?</strong>
@@ -73,11 +100,14 @@
     <div class="modal-body">
       <p>Haz clic en un marcador para ver el destino y abre “Cómo llegar” para generar la ruta en Google Maps.</p>
       <p>Usa “Usar mi ubicación” para centrar el mapa y mejorar las indicaciones.</p>
+      <p>Aplica filtros por <b>categoría</b> o por <b>zona</b> para explorar destinos específicos.</p>
     </div>
   </dialog>
 
+  <!-- Toast -->
   <div class="toast" id="toast">Ubicación activada</div>
-</body>
+
+  <!-- Script -->
   <script src="assets/js/buscador.js"></script>
+</body>
 </html>
-  
